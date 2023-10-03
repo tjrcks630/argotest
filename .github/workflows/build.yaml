@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-build.yaml build.yaml build.yaml - name: Checkout source code
+      - name: Checkout source code
         uses: actions/checkout@v2
 
       - name: Configure AWS credentials
@@ -17,7 +17,7 @@ build.yaml build.yaml build.yaml - name: Checkout source code
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+          aws-region: 
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -34,7 +34,7 @@ build.yaml build.yaml build.yaml - name: Checkout source code
         id: image-info
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: argotest #ECR 접근 할 레포지터리 이름
+          ECR_REPOSITORY: argotest
           IMAGE_TAG: ${{ steps.image.outputs.version }}
         run: |
           echo "::set-output name=ecr_repository::$ECR_REPOSITORY"
